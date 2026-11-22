@@ -1,11 +1,21 @@
 ---
 name: "nabrah-whatsapp-agent-builder"
-description: "Build, audit, or convert (V1→V2) a Nabrah WhatsApp chat agent prompt in the V2 field format — text-channel rules, not phone-call rules. Use for WhatsApp agents; use nabrah-voice-agent-builder for calls."
+description: "Build, audit, or convert (V1→V2) a Nabrah WhatsApp chat agent prompt in the V2 field format — text-channel rules, not phone-call rules. For an existing agent given by URL, run nabrah-agent-chrome-understanding first. Use nabrah-voice-agent-builder for calls."
 ---
 
 # Nabrah V2 WhatsApp-agent builder
 
 WhatsApp agents are TEXT agents. The customer reads, scrolls, copies, taps links, and may reply hours later. Do not apply voice rules (numbers as words, no lists, no URLs). Reference pattern: a car-dealer sales/service agent (≈50 tools, pre_callback, identity + OTP, bookings, purchases, payments).
+
+## Before you start — pick the workflow
+
+| Situation | Steps |
+|---|---|
+| New agent from a company description | Build directly with this skill. |
+| Convert an existing V1 agent to V2 | 1. If you only have the agent URL, run `nabrah-agent-chrome-understanding` on it first. 2. Use its `agent_overview.md` as the V1 source. 3. Convert with §4. |
+| Audit or patch a live agent | 1. Run `nabrah-agent-chrome-understanding` on the URL (skip if the user pasted the full config or `agent_overview.md`). 2. Audit against §5 and give each fix as Before / After text per field. |
+
+`agent_overview.md` already holds every field verbatim plus the attached tools and their definitions — treat it as the intake, and ask only for what it lacks. If its Basics show a voice agent, stop and use the voice builder instead.
 
 ## 0. Writing standard (non-negotiable)
 

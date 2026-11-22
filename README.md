@@ -28,9 +28,13 @@ Update later with:
 1. Run `./build-zips.sh` — it creates one zip per skill in `dist/`.
 2. Go to **Settings → Capabilities → Skills → Upload skill** and upload each zip.
 
-## Usage
+## Workflows
 
-Just ask naturally, e.g.:
-- "Build a voice agent prompt for <company> …"
-- "Convert this WhatsApp agent to V2 …"
-- "Understand this agent: https://app.nabrah.ai/…" (needs Claude in Chrome)
+| Goal | Skills, in order | Example prompt |
+|---|---|---|
+| New agent | voice **or** WhatsApp builder | "Build a voice agent for <company>, here's their FAQ …" |
+| Convert V1 → V2 | understanding → voice/WhatsApp builder | "Convert this agent to V2: https://app.nabrah.ai/…/edit" |
+| Audit / patch a live agent | understanding → voice/WhatsApp builder | "Audit this agent and give me fixes: https://app.nabrah.ai/…/edit" |
+| Just understand an agent | understanding | "Explain this agent: https://app.nabrah.ai/…/edit" |
+
+You don't need to call skills by name — give the URL and the goal, and Claude runs the understanding skill first, then picks the builder from the agent's channel. The understanding skill reads the agent in Chrome, so it needs [Claude in Chrome](https://claude.com/chrome) and a signed-in Nabrah session. It never changes the agent.

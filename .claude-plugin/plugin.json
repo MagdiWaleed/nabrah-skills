@@ -1,7 +1,7 @@
 {
   "name": "nabrah-skills",
   "displayName": "Nabrah Skills",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Build and review Nabrah voice and WhatsApp agents, and read an agent's config from Chrome.",
   "author": { "name": "Magdi Waleed", "url": "https://github.com/MagdiWaleed" },
   "repository": "https://github.com/MagdiWaleed/nabrah-skills",

@@ -1,6 +1,6 @@
 ---
 name: "nabrah-agent-chrome-understanding"
-description: "Given a Nabrah agent URL, read its whole config in Chrome strictly read-only and output agent_overview.md (all fields verbatim) plus an Overview artifact with use cases, flow diagram and tool I/O."
+description: "Given a Nabrah agent URL, read its whole config in Chrome strictly read-only and output agent_overview.md (all fields verbatim) plus an Overview artifact with use cases, flow diagram and tool I/O. Also the first step before converting (V1→V2), auditing or patching an existing agent with nabrah-voice-agent-builder or nabrah-whatsapp-agent-builder."
 ---
 
 # Nabrah Agent — Chrome Understanding (read-only)
@@ -153,4 +153,7 @@ Publish with `mcp__claude-artifacts__publish_files` (title: `<agent name> Overvi
 ## Step 7 — Deliver and reply
 1. `SendUserFile` with `agent_overview.md`.
 2. The Overview artifact card shows automatically after publishing.
-3. Reply in two or three lines: what the agent is, its main use cases, and "read-only, nothing was changed". Don't repeat the artifact link. Offer next steps only as offers (e.g. audit/patch with `nabrah-voice-agent-builder` using `agent_overview.md` as the source); never act on them unasked.
+3. Reply in two or three lines: what the agent is, its main use cases, and "read-only, nothing was changed". Don't repeat the artifact link. Offer next steps only as offers; never act on them unasked.
+
+### Next step: hand-off to a builder
+If the user asked for more than understanding (convert V1→V2, audit, patch, rebuild), `agent_overview.md` is the input for the builder. Pick it by channel from the Basics: phone/voice agent → `nabrah-voice-agent-builder`; WhatsApp agent → `nabrah-whatsapp-agent-builder`. If the user's original request already included that next step, continue into the builder after delivering; otherwise offer it.

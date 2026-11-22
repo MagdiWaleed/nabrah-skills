@@ -1,6 +1,6 @@
 ---
 name: "nabrah-voice-agent-builder"
-description: "Build a production voice-agent prompt in the Nabrah V2 field format (persona, workflow, knowledge, operational, optional tagging and ticketing) from a company description, or audit/patch an existing one."
+description: "Build, audit, patch or convert (V1→V2) a Nabrah voice (phone) agent prompt in the V2 field format — persona, workflow, knowledge, operational, optional tagging and ticketing. For an existing agent given by URL, run nabrah-agent-chrome-understanding first. Use nabrah-whatsapp-agent-builder for WhatsApp."
 ---
 
 # Nabrah V2 voice-agent builder
@@ -8,6 +8,16 @@ description: "Build a production voice-agent prompt in the Nabrah V2 field forma
 Turn a company description (plus any FAQs, scripts, price lists, doctor/product lists) into a copy-paste-ready agent for the Nabrah agent builder. Reference patterns: a hospital booking agent (with tools) and an FAQ/routing agent (no tools).
 
 The output is a live PHONE agent (STT → LLM → TTS). Every rule is written for speech, not chat.
+
+## Before you start — pick the workflow
+
+| Situation | Steps |
+|---|---|
+| New agent from a company description | Build directly with this skill. |
+| Convert an existing V1 agent to V2 | 1. If you only have the agent URL, run `nabrah-agent-chrome-understanding` on it first. 2. Use its `agent_overview.md` as the V1 source. 3. Convert with §7. |
+| Audit or patch a live agent | 1. Run `nabrah-agent-chrome-understanding` on the URL (skip if the user pasted the full config or `agent_overview.md`). 2. Audit against §4 and give fixes in the §6 before/after format. |
+
+`agent_overview.md` already holds every field verbatim plus the attached tools and their definitions — treat it as the intake, and ask only for what it lacks. If its Basics show a WhatsApp agent, stop and use the WhatsApp builder instead.
 
 ## 1. Intake
 
@@ -166,3 +176,13 @@ The platform fields have no line numbers. Give every fix as:
 <replacement text>
 ```
 For additions, use the line they go after as "Before" and that line + new lines as "After". Group by field. Don't edit the user's files without permission — propose the before/after first.
+
+## 7. Converting V1 → V2
+
+V1 = thin persona fields + one large Reference knowledge. Goal: the SAME behaviour, rewritten cleanly into the §2 fields. Equivalence is judged on meaning and behaviour, never on literal text.
+1. Read the whole V1 (from `agent_overview.md` or the pasted config) and the attached tools with their definitions.
+2. Inventory V1 behaviours: every flow, every tool's call conditions and inputs, every result state and what the agent says for it, every fixed script, every prohibition, every fact table.
+3. Rewrite into the §2 fields following §3. Keep fixed client scripts verbatim. Drop what the platform already holds (tool IDs, endpoints, timeouts) but keep any behaviour hidden in them (e.g. "slow, don't retry").
+4. Scan for contradictions (inside V1, and V1 vs tool definitions). Resolve them in one short tie-breaker section at the top of Operational, marked "to confirm with client".
+5. Run §4 Self-audit, then a behaviour review: compare V1 vs V2 area by area (persona, knowledge, each operational flow) for anything lost, weakened, changed or newly unsafe, and fix it.
+6. Deliver per §5, plus a short change log: what moved where, what was dropped and why.
