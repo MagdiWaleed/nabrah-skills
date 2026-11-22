@@ -1,0 +1,15 @@
+{
+  "name": "nabrah-skills",
+  "description": "Claude skills for building and reviewing Nabrah agents.",
+  "owner": {
+    "name": "Magdi Waleed",
+    "url": "https://github.com/MagdiWaleed"
+  },
+  "plugins": [
+    {
+      "name": "nabrah-skills",
+      "source": "./",
+      "description": "Build and review Nabrah voice and WhatsApp agents, and read an agent's config from Chrome."
+    }
+  ]
+}
